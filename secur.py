@@ -1,11 +1,12 @@
 import time
-import login_cred
+import login_cred,domotica,controlloe
 from datetime import datetime
 from threading import Thread
 import RPi.GPIO as GPIO
 import smtplib, ssl
 from timeout import timeout
-
+global ancora_aperto
+ancora_aperto = False
 global stato
 stato = False
 global psa
@@ -21,7 +22,7 @@ def login(passw):
         return False
 
 def login1(passw):
-    if passw == '0171':
+    if passw == login_cred.passw:
         return True
     else:
         return False
@@ -74,10 +75,13 @@ def approva(pss):
     return psa
 
 def not_at_home():
+    #domotica.esco_di_casa()
     time.sleep(5)
     x = False
     global stato
     stato = False
+    global ancora_aperto
+    ancora_aperto = False
     GPIO.setmode(GPIO.BOARD)
     buttonPin = 16
     GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -91,9 +95,12 @@ def not_at_home():
             if x:
                 return True
         elif buttonState == False and stato == True:
+            ancora_aperto = True
+            controlloe.still_open()
             pass
         else:
             stato = False
+            ancora_aperto = False
             x = controllo1(psa)
             if x:
                 return True

@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "Python: File corrente",
+            "type": "python",
+            "request": "launch",
+            "program": "test.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
