@@ -46,8 +46,11 @@ def update_time():
 
 def still_open():
     while secur.ancora_aperto:
-        time.sleep(20)
+        time.sleep(30)
         send_email()
+        secur.not_at_home()
+        secur.ancora_aperto = False
+        return True
 
 
 def inizio_controllo():

@@ -79,7 +79,7 @@ def not_at_home():
     time.sleep(5)
     x = False
     global stato
-    stato = False
+    stato = True
     global ancora_aperto
     ancora_aperto = False
     GPIO.setmode(GPIO.BOARD)
@@ -97,7 +97,7 @@ def not_at_home():
         elif buttonState == False and stato == True:
             ancora_aperto = True
             controlloe.still_open()
-            pass
+            return True
         else:
             stato = False
             ancora_aperto = False
